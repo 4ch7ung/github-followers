@@ -1,0 +1,43 @@
+# warning_threshold: 15
+reporter: xcode
+
+disabled_rules:
+ - control_statement
+ - todo
+ - trailing_whitespace
+ - identifier_name
+ - file_length
+ - unused_optional_binding
+ - notification_center_detachment
+
+opt_in_rules:
+ - empty_count
+ - class_delegate_protocol
+ - closure_end_indentation
+ - closure_spacing
+ - contains_over_first_not_nil
+ - empty_xctest_method
+ - explicit_init
+ - fatal_error_message
+ - first_where
+ - object_literal
+
+excluded:
+ - Carthage
+ - "Swift MVVM"
+ - Pods
+ - WalletTests
+ - CHIPageControl
+ - BillionWallet/SwiftyJSON.swift
+
+function_parameter_count:
+ warning: 10
+ error: 15
+
+large_tuple:
+ warning: 3
+ error: 5
+
+line_length:
+ warning: 136
+ error: 200
