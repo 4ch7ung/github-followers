@@ -34,6 +34,7 @@ class FollowerListAssembly {
         let viewController = FollowerListViewController()
         viewController.viewModel = viewModel
         viewController.imageLoaderControlView = imageLoaderView
+        viewController.emptyViewFactory = EmptyViewFactory()
         
         let assembly = FollowerListAssembly(navigationController: navigationController,
                                             imageLoaderService: imageLoaderService)

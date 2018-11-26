@@ -15,6 +15,7 @@
 		FA281B3821AC467000519E87 /* ImageLoaderChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA281B3721AC467000519E87 /* ImageLoaderChangeViewModel.swift */; };
 		FA281B3A21AC49FE00519E87 /* ImageLoaderChangeViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA281B3921AC49FE00519E87 /* ImageLoaderChangeViewAssembly.swift */; };
 		FA281B3C21AC4A3000519E87 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA281B3B21AC4A3000519E87 /* ViewAssembly.swift */; };
+		FA281B3F21AC614A00519E87 /* EmptyViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA281B3E21AC614A00519E87 /* EmptyViewFactory.swift */; };
 		FA28B7E221A9977200727725 /* FollowerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B7E021A9977200727725 /* FollowerTableViewCell.swift */; };
 		FA28B7E321A9977200727725 /* FollowerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA28B7E121A9977200727725 /* FollowerTableViewCell.xib */; };
 		FA28B7E521A99D1300727725 /* FollowerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B7E421A99D1300727725 /* FollowerViewModel.swift */; };
@@ -54,6 +55,7 @@
 		FA281B3721AC467000519E87 /* ImageLoaderChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderChangeViewModel.swift; sourceTree = "<group>"; };
 		FA281B3921AC49FE00519E87 /* ImageLoaderChangeViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderChangeViewAssembly.swift; sourceTree = "<group>"; };
 		FA281B3B21AC4A3000519E87 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
+		FA281B3E21AC614A00519E87 /* EmptyViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewFactory.swift; sourceTree = "<group>"; };
 		FA28B7E021A9977200727725 /* FollowerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerTableViewCell.swift; sourceTree = "<group>"; };
 		FA28B7E121A9977200727725 /* FollowerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerTableViewCell.xib; sourceTree = "<group>"; };
 		FA28B7E421A99D1300727725 /* FollowerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerViewModel.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		FA28B7EE21A9A81100727725 /* FollowerListScene */ = {
 			isa = PBXGroup;
 			children = (
+				FA281B3E21AC614A00519E87 /* EmptyViewFactory.swift */,
 				FA28B7EC21A9A61D00727725 /* FollowerListAssembly.swift */,
 				FA28B7FB21A9FBCD00727725 /* FollowerListRouter.swift */,
 				FA5803A321A75428009AAFE6 /* FollowerListViewController.swift */,
@@ -142,8 +145,8 @@
 		FA28B7EF21A9A82700727725 /* FollowerCell */ = {
 			isa = PBXGroup;
 			children = (
-				FA28B7E021A9977200727725 /* FollowerTableViewCell.swift */,
 				FA28B7F921A9F7B100727725 /* FollowerViewModelFactory.swift */,
+				FA28B7E021A9977200727725 /* FollowerTableViewCell.swift */,
 				FA28B7E421A99D1300727725 /* FollowerViewModel.swift */,
 				FA28B7E121A9977200727725 /* FollowerTableViewCell.xib */,
 			);
@@ -367,6 +370,7 @@
 				FA28B7E921A99DA200727725 /* DynamicExtensions.swift in Sources */,
 				FA58039221A75408009AAFE6 /* AppDelegate.swift in Sources */,
 				FA28B7E521A99D1300727725 /* FollowerViewModel.swift in Sources */,
+				FA281B3F21AC614A00519E87 /* EmptyViewFactory.swift in Sources */,
 				FA28B7FA21A9F7B100727725 /* FollowerViewModelFactory.swift in Sources */,
 				FA281B3C21AC4A3000519E87 /* ViewAssembly.swift in Sources */,
 				FA281B3821AC467000519E87 /* ImageLoaderChangeViewModel.swift in Sources */,

@@ -13,6 +13,7 @@ class FollowerListViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var imageLoaderPlaceholder: PlaceholderView!
     var imageLoaderControlView: UIView?
+    var emptyViewFactory: EmptyViewFactoryProtocol?
     
     var refreshController: UIRefreshControl!
     var router: FollowerListRouter?
@@ -57,6 +58,7 @@ class FollowerListViewController: UIViewController {
     }
     
     @objc func refresh(_ refreshControl: UIRefreshControl) {
+        tableView.backgroundView = nil
         viewModel.loadFollowers()
     }
 }
@@ -71,13 +73,14 @@ extension FollowerListViewController: FollowersListManagerDelegate {
 extension FollowerListViewController: FollowerListVMDelegate {
     func didLoadFollowers() {
         refreshController.endRefreshing()
+        tableView.backgroundView = nil
         tableView.reloadData()
     }
     
     func didFailToLoadFollowers(_ errorMessage: String) {
         refreshController.endRefreshing()
-        // TODO: Show the message
-        NSLog(errorMessage)
+        let emptyView = emptyViewFactory?.createView(frame: tableView.bounds, message: errorMessage)
+        tableView.backgroundView = emptyView
         tableView.reloadData()
     }
 }
