@@ -20,6 +20,7 @@ class FollowerTableViewCell: UITableViewCell {
     
     func configure(viewModel: FollowerVM) {
         self.viewModel = viewModel
+        self.viewModel?.delegate = self
         
         loginLabel.bindNow(to: viewModel.login)
         fullnameLabel.bindNow(to: viewModel.fullname)
@@ -27,8 +28,15 @@ class FollowerTableViewCell: UITableViewCell {
         emailLabel.bindNow(to: viewModel.email)
         
         viewModel.fetchUserInfo()
-        if let url = URL(string: viewModel.avatarUrlString) {
-            NukeImageLoader().loadImage(url: url, to: avatarImageView)
+    }
+}
+
+extension FollowerTableViewCell: FollowerVMDelegate {
+    func didUpdateImageLoader(_ imageLoader: ImageLoader) {
+        if let viewModel = self.viewModel,
+            let url = URL(string: viewModel.avatarUrlString) {
+            
+            imageLoader.loadImage(url: url, to: avatarImageView)
         }
     }
 }

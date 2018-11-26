@@ -9,11 +9,13 @@
 import Foundation
 import Alamofire
 
+private let API_QUEUE_NAME = "github-api-queue"
+
 class AlamofireGithubAPI: GithubAPI {
     let queue: DispatchQueue
     
     init() {
-        self.queue = DispatchQueue(label: "github-api-queue")
+        self.queue = DispatchQueue(label: API_QUEUE_NAME)
     }
     
     func fetchFollowers(followersURL: URL, callback: @escaping Callback<[GithubFollowerModel]>) {

@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 
 class KingfisherImageLoader: ImageLoader {
+    let name: String = "Kingfisher"
+    
     func loadImage(url: URL, to imageView: UIImageView) {
         imageView.kf.setImage(with: url)
     }

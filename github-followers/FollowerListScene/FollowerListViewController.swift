@@ -11,6 +11,8 @@ import UIKit
 class FollowerListViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var imageLoaderPlaceholder: PlaceholderView!
+    var imageLoaderControlView: UIView?
     
     var refreshController: UIRefreshControl!
     var router: FollowerListRouter?
@@ -31,18 +33,27 @@ class FollowerListViewController: UIViewController {
         refreshController.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshController
         
+        setupImageLoaderControl()
+        
         bindToViewModel()
         refreshController.beginRefreshing()
         viewModel.loadFollowers()
     }
     
-    func bindToViewModel() {
+    private func bindToViewModel() {
         self.navigationItem.title = "Followers of \(viewModel.login)"
         tableView.delegate = viewModel.followersDataManager
         tableView.dataSource = viewModel.followersDataManager
         tableView.prefetchDataSource = viewModel.followersDataManager
         
         viewModel.followersDataManager.delegate = self
+    }
+    
+    func setupImageLoaderControl() {
+        if let insertedView = imageLoaderControlView {
+            self.imageLoaderPlaceholder.insertContentView(insertedView)
+            insertedView.didMoveToSuperview()
+        }
     }
     
     @objc func refresh(_ refreshControl: UIRefreshControl) {

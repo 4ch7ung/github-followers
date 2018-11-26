@@ -10,6 +10,8 @@ import UIKit
 import Nuke
 
 class NukeImageLoader: ImageLoader {
+    let name: String = "Nuke"
+    
     func loadImage(url: URL, to imageView: UIImageView) {
         Nuke.loadImage(with: url, into: imageView)
     }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FollowerVMDelegate: class {
+    func didUpdateImageLoader(_ imageLoader: ImageLoader)
+}
+
 protocol FollowerVM {
     var avatarUrlString: String { get }
     var followersUrlString: String { get }
@@ -17,12 +21,15 @@ protocol FollowerVM {
     var company: Dynamic<String> { get }
     var email: Dynamic<String> { get }
     
+    var delegate: FollowerVMDelegate? { get set }
+    
     func fetchUserInfo()
 }
 
 class FollowerViewModel: FollowerVM {
     private let githubAPI: GithubAPI
     private let userUrlString: String
+    private var imageLoader: ImageLoader
     
     let avatarUrlString: String
     let followersUrlString: String
@@ -32,13 +39,19 @@ class FollowerViewModel: FollowerVM {
     var company: Dynamic<String>
     var email: Dynamic<String>
     
+    weak var delegate: FollowerVMDelegate?
+    
+    var inputChannel: Channel<ImageLoader>?
+    
     init(githubAPI: GithubAPI,
+         imageLoader: ImageLoader,
          login: String,
          avatarUrlString: String,
          followersUrlString: String,
          userUrlString: String) {
         
         self.githubAPI = githubAPI
+        self.imageLoader = imageLoader
         self.avatarUrlString = avatarUrlString
         self.followersUrlString = followersUrlString
         self.userUrlString = userUrlString
@@ -47,6 +60,29 @@ class FollowerViewModel: FollowerVM {
         self.fullname = Dynamic("?")
         self.company = Dynamic("?")
         self.email = Dynamic("?")
+    }
+    
+    private lazy var objId: String = {
+        let id = "\(type(of: self)):\(String(format: "%p", unsafeBitCast(self, to: Int.self)))"
+        return id
+    }()
+    
+    deinit {
+        self.inputChannel?.removeObserver(withId: self.objId)
+        self.inputChannel = nil
+    }
+    
+    func setInputChannel(_ channel: Channel<ImageLoader>) {
+        self.inputChannel = channel
+        let observer = Observer<ImageLoader>(id: objId, callback: { [weak self] imageLoader in
+            self?.updateImageLoader(imageLoader)
+        })
+        self.inputChannel?.addObserver(observer)
+    }
+    
+    func updateImageLoader(_ imageLoader: ImageLoader) {
+        self.imageLoader = imageLoader
+        delegate?.didUpdateImageLoader(imageLoader)
     }
     
     func fetchUserInfo() {
@@ -61,6 +97,8 @@ class FollowerViewModel: FollowerVM {
                     self.fullname &= userInfo.name ?? "-"
                     self.company &= userInfo.company ?? "-"
                     self.email &= userInfo.email ?? "-"
+                    
+                    self.delegate?.didUpdateImageLoader(self.imageLoader)
                 }
             case .failure:
                 // TODO: something

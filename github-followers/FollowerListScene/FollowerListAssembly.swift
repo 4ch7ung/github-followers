@@ -10,14 +10,22 @@ import UIKit
 
 class FollowerListAssembly {
     var navigationController: UINavigationController
+    let imageLoaderService: ImageLoaderServiceProtocol
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController,
+         imageLoaderService: ImageLoaderServiceProtocol) {
+        
         self.navigationController = navigationController
+        self.imageLoaderService = imageLoaderService
     }
     
     func assembleView(login: String, followersUrlString: String) -> UIViewController {
         let githubAPI = AlamofireGithubAPI()
-        let followerFactory = FollowerViewModelFactory(githubAPI: githubAPI)
+        let followerFactory = FollowerViewModelFactory(githubAPI: githubAPI,
+                                                       imageLoaderService: imageLoaderService)
+        
+        let imageLoaderAssembly = ImageLoaderChangeViewAssembly(imageLoaderService: imageLoaderService)
+        let imageLoaderView = imageLoaderAssembly.assembleView()
         
         let viewModel = FollowerListViewModel(githubAPI: githubAPI,
                                               followerFactory: followerFactory,
@@ -25,8 +33,10 @@ class FollowerListAssembly {
                                               followersUrlString: followersUrlString)
         let viewController = FollowerListViewController()
         viewController.viewModel = viewModel
+        viewController.imageLoaderControlView = imageLoaderView
         
-        let assembly = FollowerListAssembly(navigationController: navigationController)
+        let assembly = FollowerListAssembly(navigationController: navigationController,
+                                            imageLoaderService: imageLoaderService)
         let router = FollowerListRouter(followerListViewAssembly: assembly)
         router.navigationController = navigationController
         viewController.router = router

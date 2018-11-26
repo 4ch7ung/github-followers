@@ -24,7 +24,13 @@ class ApplicationController: AppController {
     
     func start() {
         let navController = UINavigationController()
-        let assembly = FollowerListAssembly(navigationController: navController)
+        let imageLoaderService = ImageLoaderService(imageLoaders: [
+            NukeImageLoader(),
+            KingfisherImageLoader()
+            ])
+        imageLoaderService.outputChannel = Channel<ImageLoader>()
+        let assembly = FollowerListAssembly(navigationController: navController,
+                                            imageLoaderService: imageLoaderService)
         let mainVc = assembly.assembleView(login: startLogin,
                                            followersUrlString: followersUrlString)
         
